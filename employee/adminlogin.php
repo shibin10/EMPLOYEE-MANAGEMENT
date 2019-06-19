@@ -1,36 +1,25 @@
-<?php
-$connect=mysqli_connect("localhost","root","","emp");
-if(isset($_POST['login']))
-{
-   
-    $email=mysqli_real_escape_string($connect,$_POST['email']);
-	$pass=mysqli_real_escape_string($connect,$_POST['pass']);
-	
-	$querry="select * from details where email='$email'and pass='$pass'";
-	$qry=mysqli_query($connect,$querry);
- 
- $count=mysqli_num_rows($qry);
-	 if($count==1){
-		 header(   'location:emp.php');
-		 exit();
-	 }
-	 else{
-		 echo" you hav entered wrong password";
-		 exit();
-	 }
- }
-
-?>
-
-
-
 
 
 <!DOCTYPE html>
+<?php
+
+if(isset($_POST['login']))
+{
+	$u=$_POST['email'];
+	$p=$_POST['pass'];
+	if($u=="admin"&& $p=="admin")
+	{
+		header( "Location:http://localhost:8080/project/employee/adminhome.php" ); die;
+	}
+}
+
+
+
+?>
+
 <html lang="en">
 <head>
-	<title>Employe Loginn </title>
-	<form action="" method="POST">
+	<title>Admin Login </title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -57,7 +46,7 @@ if(isset($_POST['login']))
 <!--===============================================================================================-->
 </head>
 <body>
-	
+	<form action="" method="post">
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -69,9 +58,9 @@ if(isset($_POST['login']))
 						<i class="zmdi zmdi-font"></i>
 					</span>
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+					<div class="wrap-input100 validate-input" >
 						<input class="input100" type="text" name="email">
-						<span class="focus-input100" data-placeholder="Email"></span>
+						<span class="focus-input100" data-placeholder="Username"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
@@ -85,19 +74,13 @@ if(isset($_POST['login']))
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn" name="login" >
-							LOGIN
+							<button class="login100-form-btn" name="login">
+								Login
 							</button>
 						</div>
 					</div>
-						<div class="text-center p-t-115">
-						<span class="txt1">
-							Don’t have an account?
-						</span>
-							<a class="txt2" href="signup.php">
-							Sign Up
-						</a>
-					</div>
+
+					
 				</form>
 			</div>
 		</div>
@@ -125,14 +108,3 @@ if(isset($_POST['login']))
 
 </body>
 </html>
-
-
-<?php
-session_start();
-$_SESSION['email']='email';
-$_SESSION['error-message']='error';
-if(isset($_SESSION['login'])&& !empty($_SESSION['login']))
-{
-  header(   'location:emp.php');
-}
-?>

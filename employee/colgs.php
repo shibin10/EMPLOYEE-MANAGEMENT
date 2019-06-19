@@ -1,6 +1,57 @@
+
 <?php
 session_start();
+if(!isset($_SESSION['email']))
+{
+    header( "Location: emplogin.php");
+  exit();
+}
+$email=$_GET['email'];
+
+echo"hello $email";
+
+mysql_connect('localhost','root','');
+mysql_select_db('emp');
+$sql ="select * from details where email !='$email' ";
+$records=mysql_query($sql);
 ?>
+
+<html>
+<head>
+<title> Employee Data</title>
+</head>
+<center>
+<body>
+<table width="600" border="2" cellpadding="2" cellspacing="2">
+<tr>
+<th>ID</th>
+<th>NAME</th>
+    <th>EMAIL</th>
+    <th>PHONE</th>
+    <th>JOB</th>
+   
+  </tr>
+<?php
+while($employee=mysql_fetch_assoc($records))
+{
+  echo"<tr>";
+  echo "<td>",$employee['id'],"</td>";
+  echo "<td>",$employee['name'],"</td>";
+  echo "<td>",$employee['email'],"</td>";
+  echo "<td>",$employee['phno'],"</td>";
+  echo "<td>",$employee['job'],"</td>";
+ 
+  echo"</tr>";
+}
+?>
+</table>
+
+</body>
+</center>
+</html>
+
+
+
 
 
 
@@ -40,10 +91,10 @@ p {line-height: 2}
 <!-- Navbar (sticky bottom) -->
 <div class="w3-bottom w3-hide-small">
   <div class="w3-bar w3-white w3-center w3-padding w3-opacity-min w3-hover-opacity-off">
-    <a href="home.php" style="width:25%" class="w3-bar-item w3-button">Home</a>
-    <a href="mypro.php" style="width:25%" class="w3-bar-item w3-button">My Profile</a>
-    <a href="editpro.php" style="width:25%" class="w3-bar-item w3-button">Edit Profile</a>
-    <a href="colgs.php" style="width:25%" class="w3-bar-item w3-button w3-hover-black">Collegues</a>
+    <a href="home.php" style="width:35%" class="w3-bar-item w3-button">Home</a>
+    
+    <a href="editpro.php" style="width:30%" class="w3-bar-item w3-button">Edit Profile</a>
+    <a href="emp.php" style="width:35%" class="w3-bar-item w3-button w3-hover-black">MAIN PAGE</a>
   </div>
 </div>
 <!-- Footer -->
@@ -56,17 +107,6 @@ p {line-height: 2}
 </html>
 
 
-<?php
-if(isset($_SESSION['email'])&& !empty($_SESSION['email']))
-{
-  echo $_SESSION['email'].'</br>';
-}
-if(isset($_SESSION['error-message'])&& !empty($_SESSION['error-message']))
-{
-  echo $_SESSION['error-message'].'</br>';
-}
-session_destroy();
-?>
 
 
 

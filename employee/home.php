@@ -44,10 +44,10 @@ body, html {
     <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
       <i class="fa fa-bars"></i>
     </a>
-    <a href="home" class="w3-bar-item w3-button">HOME</a>
+    <a href="home.php" class="w3-bar-item w3-button">HOME</a>
     <a href="guest.php" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> GUEST</a>
-    <a href="login/emplogin.php" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> EMPLOYEE</a>
-    <a href="login/adminlogin.php" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ADMIN</a>
+    <a href="emplogin.php" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> EMPLOYEE</a>
+    <a href="adminlogin.php" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ADMIN</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
       <i class="fa fa-search"></i>
     </a>

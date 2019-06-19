@@ -1,7 +1,53 @@
+<?php
+$connect=mysqli_connect("localhost","root","","emp");
+
+
+
+if (isset($_POST['email']))
+{
+   $email=$_POST['email'];
+ 
+   $url="emp.php?email=" .$email;
+   header( 'Location:'. $url);
+ exit();
+ 
+}
+
+
+
+
+if(isset($_POST['login']))
+{
+   
+    $email=mysqli_real_escape_string($connect,$_POST['email']);
+	$pass=mysqli_real_escape_string($connect,$_POST['pass']);
+	
+	$querry="select * from details where email='$email'and pass='$pass'";
+	$qry=mysqli_query($connect,$querry);
+ 
+ $count=mysqli_num_rows($qry);
+	 if($count==1){
+		 header(   'location:emp.php');
+		 exit();
+	 }
+	 else{
+		 echo" you hav entered wrong password";
+		 exit();
+	 }
+ }
+
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Admin Login </title>
+	<title>Employe Loginn </title>
+	<form action="" method="POST">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -56,13 +102,19 @@
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn" name="login">
-								Login
+							<button class="login100-form-btn" name="login" >
+							LOGIN
 							</button>
 						</div>
 					</div>
-
-					
+						<div class="text-center p-t-115">
+						<span class="txt1">
+							Don’t have an account?
+						</span>
+							<a class="txt2" href="signup.php">
+							Sign Up
+						</a>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -90,3 +142,14 @@
 
 </body>
 </html>
+
+
+<?php
+session_start();
+$_SESSION['email']='email';
+$_SESSION['error-message']='error';
+if(isset($_SESSION['login'])&& !empty($_SESSION['login']))
+{
+  header(   'location:emp.php');
+}
+?>
