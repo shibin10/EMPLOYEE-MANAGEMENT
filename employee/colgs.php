@@ -6,9 +6,9 @@ if(!isset($_SESSION['email']))
     header( "Location: emplogin.php");
   exit();
 }
-$email=$_GET['email'];
+$email=$_SESSION['email'];
 
-echo"hello $email";
+
 
 mysql_connect('localhost','root','');
 mysql_select_db('emp');
@@ -91,9 +91,9 @@ p {line-height: 2}
 <!-- Navbar (sticky bottom) -->
 <div class="w3-bottom w3-hide-small">
   <div class="w3-bar w3-white w3-center w3-padding w3-opacity-min w3-hover-opacity-off">
-    <a href="home.php" style="width:35%" class="w3-bar-item w3-button">Home</a>
+    <a href="editpro.php" style="width:35%" class="w3-bar-item w3-button">Home</a>
     
-    <a href="editpro.php" style="width:30%" class="w3-bar-item w3-button">Edit Profile</a>
+    <a href="test.php" style="width:30%" class="w3-bar-item w3-button">Edit Profile</a>
     <a href="emp.php" style="width:35%" class="w3-bar-item w3-button w3-hover-black">MAIN PAGE</a>
   </div>
 </div>

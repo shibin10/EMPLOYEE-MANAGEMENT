@@ -1,19 +1,20 @@
 
 <?php
-
-if(!isset($_GET['email']))
+session_start();
+if(!isset($_SESSION['email']))
 {
-    header( "Location: emplogin.php");
+    header(  "Location: emplogin.php");
   exit();
 }
-$email=$_GET['email'];
-$url="colgs.php?email=" .$email;
-echo"See Your Collegues <a href='$url'>COLLEGUES</a>";
+$email=$_SESSION['email'];
+
 
 mysql_connect('localhost','root','');
 mysql_select_db('emp');
 $sql ="select * from details where email='$email' limit 1";
 $records=mysql_query($sql);
+
+
 ?>
 
 <html>
@@ -44,6 +45,13 @@ while($employee=mysql_fetch_assoc($records))
   echo "<td>",$employee['job'],"</td>";
  
   echo"</tr>";
+
+}
+
+if (isset($_POST['home']))
+{
+  session_destroy();
+  header(  "Location: home.php");
 }
 ?>
 </table>
@@ -62,7 +70,7 @@ while($employee=mysql_fetch_assoc($records))
 <title>MY HOME</title>
 
 
-
+<form action="" method="POST"
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -81,29 +89,25 @@ p {line-height: 2}
 </style>
 <body>
 
-<!-- Header / Home-->
-<header class="w3-display-container w3-wide bgimg w3-grayscale-min" id="home">
-  <div class="w3-display-middle w3-text-white w3-center">
-    <h1 class="w3-jumbo">WELCOME</h1>
-    <h2>Are getting married</h2>
-    <h2><b>17.07.2017</b></h2>
-  </div>
-</header>
+
 
 <!-- Navbar (sticky bottom) -->
 <div class="w3-bottom w3-hide-small">
   <div class="w3-bar w3-white w3-center w3-padding w3-opacity-min w3-hover-opacity-off">
-    <a href="home.php" style="width:35%" class="w3-bar-item w3-button">Home</a>
-    
-    <a href="editpro.php" style="width:30%" class="w3-bar-item w3-button">Edit Profile</a>
-    
-  </div>
+    <a  href="editpro.php" style="width:35%" class="w3-bar-item w3-button" name="home">Home</a>
+  
+    <a href="test.php" style="width:30%" class="w3-bar-item w3-button">Edit Profile</a>
+    <a href="colgs.php" style="width:30%" class="w3-bar-item w3-button">Collegues</a>
 </div>
 <div class="w3-hide-small" style="margin-bottom:32px"> </div>
 
 </body>
 </html>
+<?php
 
+
+
+?>
 
 
 

@@ -1,17 +1,46 @@
 <?php
+mysql_connect('localhost','root','');
+mysql_select_db('emp');
+$sql ="select * from details";
+$records=mysql_query($sql);
+?>
 
-$connect=mysqli_connect("localhost","root","","emp");
+<html>
+<head>
+<title> Employee Data</title>
+</head>
 
-session_start();
-if(!isset($_SESSION['email']))
+<body>
+    <center>
+<table width="600" border="2" cellpadding="2" cellspacing="2">
+<tr>
+<th>ID</th>
+<th>NAME</th>
+    <th>EMAIL</th>
+    <th>PHONE</th>
+    <th>JOB</th>
+
+  </tr>
+<?php
+while($employee=mysql_fetch_assoc($records))
 {
-    header(  "Location: emplogin.php");
-  exit();
-}
-$email=$_SESSION['email'];
+  echo"<tr>";
+  echo "<td>",$employee['id'],"</td>";
+  echo "<td>",$employee['name'],"</td>";
+  echo "<td>",$employee['email'],"</td>";
+  echo "<td>",$employee['phno'],"</td>";
+  echo "<td>",$employee['job'],"</td>";
 
+  echo"</tr>";
+}
 
 ?>
+</table>
+
+</body>
+</center>
+</html>
+
 
 <html>
 <head>
@@ -32,11 +61,11 @@ input{
 </style>
 </head>
 <body>
-<center>
-<h1>ARE YOU SURE????YOU WANT TO EDIT DATA</h1>
+
+<h1>Edit Data</h1>
     <form action="" method="POST">
-        
-        <input type="submit" name="search" value="YES">
+        <input type="text" name="id" placeholder="Enter ID To Edit"/><br/>
+        <input type="submit" name="search" value="search Data">
     </form>
    
 
@@ -49,8 +78,9 @@ $db = mysqli_select_db($connection,'emp');
 if(isset($_POST['search']))
 {
     
-   
-    $query = "select * FROM details WHERE email = '$email' ";
+    
+    $id = $_POST['id'];
+    $query = "select * FROM details WHERE id = '$id' ";
     $query_run = mysqli_query($connection,$query);
 
     if ($query_run)
@@ -63,19 +93,19 @@ if(isset($_POST['search']))
     {
         ?>
   <form action="" method="POST">
-    NAME<br>
-  <input type="text" name="name"  value="<?php echo $row['name'] ?>"><br>
+ NAME<BR>
+  <input type="text" name="name" value="<?php echo $row['name'] ?>"><br>
   EMAIL<BR>
-  <input type="text" name="email" data-validate = "Valid email is: a@b.c" value="<?php echo $row['email'] ?>"><br>
+  <input type="text" name="email" value="<?php echo $row['email'] ?>"><br>
   PHONE NUMBER<BR>
   <input type="text" name="phno" value="<?php echo $row['phno'] ?>"><br>
-  JOB <BR>
+  JOB<BR>
   <input type="text" name="job" value="<?php echo $row['job']?>"><br>
   PASSWORD<BR>
-  <input type="text" name="pass" value="<?php echo $row['pass'] ?>"><br>
+  <input type="text" name="pass" value="<?php echo $row['pass']?>"><br>
 
-
-  <input type="submit" name="edit" value="EDIT">
+  <input type="hidden" name="id" value="<?php echo $row['id'] ?>"><br>
+  <input type="submit" name="edit" value="Edit Data">
 </form>
 <?php
 
@@ -89,19 +119,21 @@ if(isset($_POST['search']))
 
 
 }
+
 if( isset($_POST['edit']))
 {
 
-  $name=$_POST['name'];
+
+$name=$_POST['name'];
     $email=$_POST['email'];
     $phno=$_POST['phno'];
-   
-    $pass=$_POST['pass'];
+    $job=$_POST['job'];
+    
 
 if($name=="")
 {
     echo"<script>alert('please enter the name')</script>";
-    exit();
+   
 }
 if($email=="")
 {
@@ -119,31 +151,36 @@ else if(!preg_match("/^\d{10}+$/",$phno)){
 	echo"<script>alert('please enter only 10 digits')</script>";	
 }
 
-
-
+if($job=="")
+{
+    echo"<script>alert('please enter the education')</script>";
+   
+    
+}
 if($pass=="")
 {
     echo"<script>alert('please enter the password')</script>";
-    exit();
+    
     
 }
+
 else
+
 {
-
-
- $s="update details set name='$_POST[name]',email='$_POST[email]',phno='$_POST[phno]',pass='$_POST[pass]' where email='$_POST[email]'";
+ $s="update details set name='$_POST[name]',email='$_POST[email]',phno='$_POST[phno]',job='$_POST[job]',pass='$_POST[pass]' where id='$_POST[id]'";
 if(mysqli_query($connection,$s))
-header("refresh:1; url=test.php");
+header("refresh:1; url=adminhome.php");
 else
 echo "not update";
 }
 }
 ?>
+ 
 </body>
 </html>
 
 
-<!DOCTYPE html>
+
 <html>
 <title>MY HOME</title>
 <form action="" method="POST"
@@ -167,14 +204,9 @@ p {line-height: 2}
 <!-- Navbar (sticky bottom) -->
 <div class="w3-bottom w3-hide-small">
   <div class="w3-bar w3-white w3-center w3-padding w3-opacity-min w3-hover-opacity-off">
-    <a  href="editpro.php" style="width:35%" class="w3-bar-item w3-button" name="home">Home</a>
-     <a href="emp.php" style="width:30%" class="w3-bar-item w3-button">Main Page</a>
-    <a href="colgs.php" style="width:35%" class="w3-bar-item w3-button">Collegues</a>
-</div>
+    <a  href="home.php" style="width:100%" class="w3-bar-item w3-button" >Logout</a>
+    </div>
 <div class="w3-hide-small" style="margin-bottom:32px"> </div>
 
 </body>
 </html>
-
-
-

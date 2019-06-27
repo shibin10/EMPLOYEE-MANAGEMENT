@@ -19,9 +19,18 @@ if($name=="")
 if($email=="")
 {
     echo"<script>alert('please enter the email')</script>";
-    exit();
+    
 }
 
+if($phno=="" )
+{
+    echo"<script>alert('please enter the mobile number')</script>";
+    
+    
+}
+else if(!preg_match("/^\d{10}+$/",$phno)){
+	echo"<script>alert('please enter only 10 digits')</script>";	
+}
 
 if($job=="")
 {
@@ -41,7 +50,8 @@ else
    $qry=mysqli_query($connect,$querry);
 
     if($qry){
-        echo"<h3> Registered</h3>";
+		echo"<h3> Registered</h3>";
+		header("Location:adminhome.php");
     }
 }
 ?>
@@ -52,7 +62,7 @@ else
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title> Sign Up </title>
+    <title> ADD A PROFILE </title>
 	<form method="POST">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -86,7 +96,7 @@ else
 			<div class="wrap-login100">
 				<form class="login100-form validate-form">
 					<span class="login100-form-title p-b-26">
-						Sign Up
+						Add A Profile
 					</span>
 					<span class="login100-form-title p-b-48">
 						<i class="zmdi zmdi-font"></i>
@@ -103,7 +113,7 @@ else
                     </div>
                     
                     <div class="wrap-input100 validate-input" >
-						<input class="input100" type="text" name="phno:" >
+						<input class="input100" type="text" name="phno" >
 						<span class="focus-input100" data-placeholder="Phone no"></span>
                     </div>
                     
