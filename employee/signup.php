@@ -5,12 +5,19 @@
 $connect=mysqli_connect("localhost","root","","emp");
 if(isset($_POST['signup']))
 {
+
+	$check = getimagesize($_FILES["image"]["tmp_name"]);
+	if($check !== false)
+	{
+        $image = $_FILES['image']['tmp_name'];
+        $imgContent = addslashes(file_get_contents($image));
     $name=$_POST['name'];
     $email=$_POST['email'];
     $phno=$_POST['phno'];
     $job=$_POST['job'];
     $pass=$_POST['pass'];
-
+	
+    
 if($name=="")
 {
     echo"<script>alert('please enter the name')</script>";
@@ -22,12 +29,20 @@ if($email=="")
     
 }
 
+if($imgContent=="" )
+{
+    echo"<script>alert('please post your Display Picture')</script>";
+    
+    
+}
+
 if($phno=="" )
 {
     echo"<script>alert('please enter the mobile number')</script>";
     
     
 }
+
 else if(!preg_match("/^\d{10}+$/",$phno)){
 	echo"<script>alert('please enter only 10 digits')</script>";	
 }
@@ -46,14 +61,23 @@ if($pass=="")
     
 }
 else
-    $querry="insert into details (name,email,phno,job,pass) values('$name','$email','$phno','$job','$pass')";
-   $qry=mysqli_query($connect,$querry);
-
-    if($qry){
-		echo"<h3> Registered</h3>";
-		header("Location:adminhome.php");
-    }
+{
+$querry="insert into details (email,pass,image,phno,job,name) values('$email','$pass','$imgContent','$phno','$job','$name')";
+$qry=mysqli_query($connect,$querry);
+if($qry)
+{
+	echo "File uploaded successfully.";
+	header("Location:adminhome.php");
 }
+else
+{
+	echo "File size is too big";
+}
+}
+		
+	}
+}
+
 ?>
 
 
@@ -63,7 +87,7 @@ else
 <html lang="en">
 <head>
     <title> ADD A PROFILE </title>
-	<form method="POST">
+	<form method="POST" enctype="multipart/form-data">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -107,7 +131,7 @@ else
 						<span class="focus-input100" data-placeholder="Name"></span>
 					</div>
 					
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+					<div class="wrap-input100 validate-input" data-validate ="Valid email is: a@b.c">
 						<input class="input100" type="text" name="email">
 						<span class="focus-input100" data-placeholder="Email"></span>
                     </div>
@@ -130,6 +154,11 @@ else
 						</span>
 						<input class="input100" type="password" name="pass">
 						<span class="focus-input100" data-placeholder="Password"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" >
+						<input class="input100" type="file" name="image" id="image">
+						<span class="focus-input100" ></span>
 					</div>
 
 					<div class="container-login100-form-btn">

@@ -8,10 +8,34 @@ $records=mysql_query($sql);
 <html>
 <head>
 <title> Employee Data</title>
+
+<style>
+table {
+  width:100%;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+table#t01 tr:nth-child(even) {
+  background-color: #eee;
+}
+table#t01 tr:nth-child(odd) {
+ background-color: #fff;
+}
+table#t01 th {
+  background-color: black;
+  color: white;
+}
+</style>
 </head>
 
 <body>
-<table width="600" border="2" cellpadding="2" cellspacing="2">
+<table width="600" border="2" cellpadding="2" cellspacing="2"  table id="t01">
 <tr>
 <th>ID</th>
 <th>NAME</th>
