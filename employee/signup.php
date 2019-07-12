@@ -23,28 +23,29 @@ if($name=="")
     echo"<script>alert('please enter the name')</script>";
     exit();
 }
-if($email=="")
+if($email=="" or !filter_var($email, FILTER_VALIDATE_EMAIL))
 {
     echo"<script>alert('please enter the email')</script>";
-    
+exit();
 }
 
 if($imgContent=="" )
 {
     echo"<script>alert('please post your Display Picture')</script>";
-    
+   
     
 }
 
 if($phno=="" )
 {
     echo"<script>alert('please enter the mobile number')</script>";
-    
+   
     
 }
 
 else if(!preg_match("/^\d{10}+$/",$phno)){
 	echo"<script>alert('please enter only 10 digits')</script>";	
+
 }
 
 if($job=="")

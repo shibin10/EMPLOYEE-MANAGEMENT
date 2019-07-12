@@ -121,14 +121,11 @@ p {line-height: 2}
   <div class="w3-bar w3-white w3-center w3-padding w3-opacity-min w3-hover-opacity-off">
     <a href="editpro.php" style="width:35%" class="w3-bar-item w3-button">Home</a>
     
-    <a href="test.php" style="width:30%" class="w3-bar-item w3-button">Edit Profile</a>
+    <a href="sample.php" style="width:30%" class="w3-bar-item w3-button">Edit Profile</a>
     <a href="emp.php" style="width:35%" class="w3-bar-item w3-button w3-hover-black">MAIN PAGE</a>
   </div>
 </div>
-<!-- Footer -->
-<footer class="w3-center w3-black w3-padding-16">
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
-</footer>
+
 <div class="w3-hide-small" style="margin-bottom:32px"> </div>
 
 </body>

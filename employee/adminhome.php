@@ -42,7 +42,7 @@ table#t01 th {
     <th>EMAIL</th>
     <th>PHONE</th>
     <th>JOB</th>
-    <th>PASSWORD</th>
+    <th>IMAGE</th>
 
   </tr>
 <?php

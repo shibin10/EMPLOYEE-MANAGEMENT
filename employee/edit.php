@@ -19,7 +19,7 @@ input{
 <body>
 <center>
 <h1>Edit Data</h1>
-    <form action="" method="POST">
+    <form action="" method="POST" >
         <input type="text" name="id" placeholder="Enter ID To Edit"/><br/>
         <input type="submit" name="search" value="search Data">
     </form>
@@ -48,7 +48,7 @@ if(isset($_POST['search']))
     while($row = mysqli_fetch_array($query_run))
     {
         ?>
-  <form action="" method="POST">
+  <form action="" method="POST"  enctype="multipart/form-data">
  NAME<BR>
   <input type="text" name="name" value="<?php echo $row['name'] ?>"><br>
   EMAIL<BR>
@@ -59,8 +59,9 @@ if(isset($_POST['search']))
   <input type="text" name="job" value="<?php echo $row['job']?>"><br>
   PASSWORD<BR>
   <input type="text" name="pass" value="<?php echo $row['pass']?>"><br>
-
+ 
   <input type="hidden" name="id" value="<?php echo $row['id'] ?>"><br>
+  <input type="file" name="image" id="image"><br>
   <input type="submit" name="edit" value="Edit Data">
 </form>
 <?php
@@ -79,7 +80,12 @@ if(isset($_POST['search']))
 if( isset($_POST['edit']))
 {
 
-
+ $check = getimagesize($_FILES["image"]["tmp_name"]);
+ if($check !== false)
+    {
+          $image = $_FILES['image']['tmp_name'];
+          $imgContent = addslashes(file_get_contents($image));
+     
 $name=$_POST['name'];
     $email=$_POST['email'];
     $phno=$_POST['phno'];
@@ -91,10 +97,10 @@ if($name=="")
     echo"<script>alert('please enter the name')</script>";
    
 }
-if($email=="")
+if($email=="" or !filter_var($email, FILTER_VALIDATE_EMAIL))
 {
     echo"<script>alert('please enter the email')</script>";
-    
+    exit();
 }
 
 if($phno=="" )
@@ -123,13 +129,13 @@ if($pass=="")
 else
 
 {
- $s="update details set name='$_POST[name]',email='$_POST[email]',phno='$_POST[phno]',job='$_POST[job]',pass='$_POST[pass]' where id='$_POST[id]'";
+ $s="update details set name='$_POST[name]',email='$_POST[email]',phno='$_POST[phno]',job='$_POST[job]',pass='$_POST[pass]', image='$imgContent' where id='$_POST[id]'";
 if(mysqli_query($connection,$s))
 echo"done";
 else
 echo "not update";
 }
-}
+}}
 ?>
  </center>
 </body>
@@ -159,8 +165,9 @@ p {line-height: 2}
 <!-- Navbar (sticky bottom) -->
 <div class="w3-bottom w3-hide-small">
   <div class="w3-bar w3-white w3-center w3-padding w3-opacity-min w3-hover-opacity-off">
-    <a  href="home.php" style="width:50%" class="w3-bar-item w3-button" >Logout</a>
-    <a  href="signup.php" style="width:50%" class="w3-bar-item w3-button" >Add A Profile</a>
+    <a  href="home.php" style="width:35%" class="w3-bar-item w3-button" >Logout</a>
+    <a  href="adminhome.php" style="width:30%" class="w3-bar-item w3-button" >Home</a>
+    <a  href="signup.php" style="width:35%" class="w3-bar-item w3-button" >Add A Profile</a>
     </div>
 <div class="w3-hide-small" style="margin-bottom:32px"> </div>
 

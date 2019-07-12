@@ -67,7 +67,7 @@ if(isset($_POST['search']))
   <input type="text" name="job" value="<?php echo $row['job']?>"><br>
   PASSWORD<BR>
   <input type="text" name="pass" value="<?php echo $row['pass'] ?>"><br>
-  <input type="text" name="id" value="<?php echo $row['id'] ?>"><br>
+  <input type="hidden" name="id" value="<?php echo $row['id'] ?>"><br>
 
   <input type="file" name="image" id="image"><br>
   <input type="submit" name="edit" value="EDIT"><br>
@@ -92,16 +92,11 @@ if( isset($_POST['edit']))
       $job=$_POST['job'];
       $pass=$_POST['pass'];
       $id=$_POST['id'];
-} else 
- 
-$sql = "DELETE FROM details WHERE id='$_POST[id]' ";
-
-if (mysqli_query($connection, $sql)) {
-    echo "Record deleted successfully";
 }
+ 
 
-$querry="insert into details (email,pass,image,phno,job,name) values('$email','$pass','$imgContent','$phno','$job','$name') ";
-$qry=mysqli_query($connection,$querry);
+$s="update details set  name='$_POST[name]',email='$_POST[email]',phno='$_POST[phno]',job='$_POST[job]',pass='$_POST[pass]', image='$imgContent' where id='$_POST[id]'";
+$qry=mysqli_query($connection,$s);
 if($qry)
 {
 	echo "File uploaded successfully.";
